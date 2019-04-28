@@ -43,7 +43,10 @@
     </div>
     <div class="success-message" v-show="!showForm"><!-- TODO: Modulate display of the .success-message using v-show and the showForm variable. -->
       <h1>Thank you for signing up!</h1>
-      <p>Please take our new member survey. Click here</p><!-- TODO: Link "Click here" to the survey page. -->
+      <!-- Linked "Click here" to the survey page. -->
+      <p>
+      Please take our new member survey. <router-link to="/survey">Click here</router-link>
+      </p>
     </div>
   </div>
 </template>
@@ -63,6 +66,15 @@ export default {
   },
   methods: {
     validateForm: function () {
+      if ((this.username !== '') &&
+        (this.email !== '') &&
+        (this.password === this.passwordVerify)
+      ) {
+        this.showForm = false;
+      } else {
+        this.showError = true;
+      }
+
       // Validate the form by checking the following values:
       // username must not be blank
       // email must not be blank
